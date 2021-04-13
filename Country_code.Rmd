@@ -11,7 +11,8 @@ library(countrycode)
 ##Origin and destination
 
 ```{r}
-
+data <- read.csv("gdp-csv-.csv")
+print(data)
 ```
 
 ##Examples of how you use country code
