@@ -1,0 +1,23 @@
+---
+title: "country_code"
+output: html_document
+---
+
+```{r}
+library(countrycode)
+```
+
+
+##Origin and destination
+
+```{r}
+
+```
+
+##Examples of how you use country code
+
+##Country Name:
+
+##Guess Field:
+
+
