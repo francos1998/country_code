@@ -21,6 +21,11 @@ data %>%
 
 ##Examples of how you use country code
 
+```{r}
+countrycode(data$Country.Code, "iso3c", "un.name.fr")
+```
+
+
 ##Country Name:
 
 ##Guess Field:
