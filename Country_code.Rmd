@@ -5,13 +5,18 @@ output: html_document
 
 ```{r}
 library(countrycode)
+library(dplyr)
 ```
 
 
 ##Origin and destination
 
 ```{r}
-
+data <- read.csv("gdp.csv")
+print(data)
+data <-
+data %>% 
+  rename(Dollars = X.millions.of.international.dollars.)
 ```
 
 ##Examples of how you use country code
