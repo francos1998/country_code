@@ -114,6 +114,8 @@ custom_match = NULL,
 origin_regex = FALSE
 )
 
+\
+**Here are some examples of things you can change codes or names into:**
 ```{r}
 countrycode("USA", "iso3c", "cldr.name.ja")
 ```
@@ -130,7 +132,8 @@ countrycode("United States", "country.name", "iso2c")
 countrycode("United States", "country.name", "un.name.zh")
 ```
 
-
+\
+**You can also create your own/ download custom dictionaries for things that are not included in the generic countrycode dictionary.**
 ```{r}
 cd <- 'https://bit.ly/2ToSrFv'
 cd <- read.csv(cd)
@@ -139,10 +142,20 @@ custom_dict = cd)
 countrycode(c('Alabama', 'North Dakota'), 'state.regex', 'abbreviation',
 custom_dict = cd, origin_regex = TRUE)
 ```
+
+\
+**If your data has a name that isn't one of the recognized inputs or you want a custom output, you can use custom_match.**
 ```{r}
 countrycode(c('United States', 'California'), 'country.name', 'iso3c',
 custom_match = c('California' = 'CA'))
 ```
+
+\
+**If you don't know what type of origin you are working with you can use the guess_field function.**
+```{r}
+guess_field("美利坚合众国")
+```
+
 
 
 
