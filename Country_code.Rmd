@@ -291,10 +291,6 @@ ggplot() +
 
 ##### Convert the names (Economy) into five different languages (Russian, Arabic, French, German, Chinese)
 
-```{r}
-
-```
-
 
 ##### Find the sub-region name and code for the top 20 countries with the highest Dollar values. 
 
