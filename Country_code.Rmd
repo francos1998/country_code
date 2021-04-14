@@ -172,7 +172,8 @@ data <- read.csv("gdp.csv")
 countryname(data$Economy, destination = "continent", warn = FALSE)
 ```
 ```{r}
-countryname(data$Economy, destination = "cldr.name.bn", warn = FALSE)
+countryname(data$Economy, destination = "cldr.name.bn", warn = FALSE) %>% 
+  head(10)
 ```
 ```{r}
 countryname(data$Economy, destination = "cldr.name.es", warn = FALSE) %>% 
