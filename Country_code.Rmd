@@ -89,7 +89,7 @@ library(rgeos)
 
 <br> 
 
-##### In addition to these origins and destinations, there are more destinations. Look at the codelist to see all of the different destinations that a country code or name may be converted to. 
+##### In addition to these origins and destinations, there are more destinations.Destinations are the output expected from the country names. Look at the codelist to see all of the different destinations that a country code or name may be converted to. 
 
 ```{r}
 codelist
@@ -118,6 +118,7 @@ origin_regex = FALSE
 **Here are some examples of things you can change codes or names into:**
 ```{r}
 countrycode("USA", "iso3c", "cldr.name.ja")
+countrycode(source)
 ```
 
 ```{r}
@@ -169,6 +170,18 @@ guess_field("美利坚合众国")
 ```{r}
 data <- read.csv("gdp.csv")
 countryname(data$Economy, destination = "continent", warn = FALSE)
+```
+```{r}
+countryname(data$Economy, destination = "cldr.name.bn", warn = FALSE)
+```
+```{r}
+countryname(data$Economy, destination = "cldr.name.es", warn = FALSE) %>% 
+  head(10)
+```
+
+```{r}
+countryname(data$Economy, destination = "cldr.name.he", warn = FALSE) %>% 
+  head(10)
 ```
 
 
