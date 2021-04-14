@@ -99,11 +99,54 @@ codelist
 
 ## Country Code:
 
-##### countrycode can take in both country code and country name. What it does is, it converts either the country code or country name to whatever destination we want to convert it to. For countrycode, the origin and destination have to be put in and having to identify the origin (the code associated with the given data) is the hardest part.There are around 30 different origins and destinations for the type of countrynames and countrycodes. They are given below:
+##### countrycode can take in both country code and country name. What it does is, it converts either the country code or country name to whatever destination we want to convert it to. For countrycode, the origin and destination have to be put in and having to identify the origin (the code associated with the given data) is the hardest part.There are around 30 different origins and destinations for the type of countrynames and countrycodes. 
+
+###### The usage of the countrycode function is as follows:
+\
+countrycode(
+sourcevar,
+origin,
+destination,
+warn = TRUE,
+nomatch = NA,
+custom_dict = NULL,
+custom_match = NULL,
+origin_regex = FALSE
+)
 
 ```{r}
-
+countrycode("USA", "iso3c", "cldr.name.ja")
 ```
+
+```{r}
+countrycode("USA", "iso3c", "currency")
+```
+
+```{r}
+countrycode("United States", "country.name", "iso2c")
+```
+
+```{r}
+countrycode("United States", "country.name", "un.name.zh")
+```
+
+
+```{r}
+cd <- 'https://bit.ly/2ToSrFv'
+cd <- read.csv(cd)
+countrycode(c('AL', 'AK'), 'abbreviation', 'state',
+custom_dict = cd)
+countrycode(c('Alabama', 'North Dakota'), 'state.regex', 'abbreviation',
+custom_dict = cd, origin_regex = TRUE)
+```
+```{r}
+countrycode(c('United States', 'California'), 'country.name', 'iso3c',
+custom_match = c('California' = 'CA'))
+```
+
+
+
+
 
 
 ## Country Name:
