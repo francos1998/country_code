@@ -184,6 +184,11 @@ countryname(data$Economy, destination = "cldr.name.he", warn = FALSE) %>%
   head(10)
 ```
 
+```{r}
+countryname(data$Economy, destination = "currency", warn = FALSE) %>% 
+  head(10)
+```
+
 
 ## Mapping: countrycode + geom_sf
 
