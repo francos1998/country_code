@@ -94,8 +94,12 @@ library(rgeos)
 ```{r}
 codelist
 ```
+##### The package also includes a panel of country-year observations with different codes. 
 
-
+```{r}
+codelist_panel %>% 
+  head(10)
+```
 
 ## Country Code:
 
@@ -165,27 +169,46 @@ guess_field("美利坚合众国")
 
 ## Country Name:
 
-##### countryname can only take in names of countries and not codes. But the convenient thing about countryname is that there is no need to input an origin. For countryname, the only input is the data$country_name and the destination / type of country name or code we want to convert the country name to. 
+##### Countryname can only take in names of countries and not codes. But the convenient thing about countryname is that there is no need to input an origin. For countryname, the only input is the data$country_name and the destination / type of country name or code we want to convert the country name to. It detects variations of country names in many languages and then it applies the 'countrycodes' English regexes for the remaining cases. 
+
+###### The usage of the countryname function is as follows:
+\
+countrycode(
+sourcevar,
+destination,
+warn = FALSE,
+)
+
+\
+
+
+**Here are some examples of things you can change names into:**
 
 ```{r}
+#Here we find the continent for each of the countries in the data set
 data <- read.csv("gdp.csv")
-countryname(data$Economy, destination = "continent", warn = FALSE)
+countryname(data$Economy, destination = "continent", warn = FALSE) %>% 
+  head(10)
 ```
 ```{r}
+#Here we translate all of the country names into Bangla
 countryname(data$Economy, destination = "cldr.name.bn", warn = FALSE) %>% 
   head(10)
 ```
 ```{r}
+#Here we translate all of the country names into Spanish
 countryname(data$Economy, destination = "cldr.name.es", warn = FALSE) %>% 
   head(10)
 ```
 
 ```{r}
+#Here we translate all of the country names into Hebrew
 countryname(data$Economy, destination = "cldr.name.he", warn = FALSE) %>% 
   head(10)
 ```
 
 ```{r}
+#Here we find the currencies for the countries in the data set
 countryname(data$Economy, destination = "currency", warn = FALSE) %>% 
   head(10)
 ```
@@ -262,6 +285,11 @@ ggplot() +
 ## Exercises: 
 
 ##### Convert the names (Economy) into five different languages (Russian, Arabic, French, German, Chinese)
+
+```{r}
+
+```
+
 
 ##### Find the sub-region name and code for the top 20 countries with the highest Dollar values. 
 
