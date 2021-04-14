@@ -244,29 +244,30 @@ ggplot(data = world) +
 
 
 ```{r}
-codelist
-countryname(coordinates$name, destination = 'cldr.name.bn')
-
 bangladesh <-
   bangladesh <- coordinates[world$name == 'Bangladesh',] %>%
-  mutate(label = countryname(name, destination = 'un.name.zh'))
+  mutate(label = countryname(name, destination = 'currency'))
   
 czech <-
   coordinates[coordinates$name == 'Czech Rep.',] %>%
-  mutate(label = countryname(name, destination = 'un.name.zh'))
+  mutate(label = countryname(name, destination = 'cldr.name.ru'))
 
 nepal <-
   coordinates[coordinates$name == 'Nepal',] %>%
   mutate(label = countryname(name, destination = 'currency'))
 
-pakistan <- 
-  coordinates[coordinates$name == 'Pakistan',] %>%
-  mutate(label = countryname(name, destination = 'cldr.name.ps'))
+myanmar <-
+  coordinates[coordinates$name == 'Myanmar',] %>%
+  mutate(label = countryname(name, destination = 'currency'))
 
-ggplot() + 
-  geom_sf(data = bangladesh) +
-  geom_text(data=bangladesh ,aes(X, Y, label=label),
-            check_overlap = FALSE, size=5)
+india <- 
+  coordinates[coordinates$name == 'India',] %>%
+  mutate(label = countryname(name, destination = 'currency'))
+
+srilanka <-
+  coordinates[coordinates$name == 'Sri Lanka',] %>%
+  mutate(label = countryname(name, destination = 'currency'))
+
 
 ggplot() + 
   geom_sf(data = czech) +
@@ -276,10 +277,14 @@ ggplot() +
 ggplot() + 
   geom_sf(data = bangladesh) + 
   geom_sf(data = nepal) +
-  geom_sf(data = pakistan) +
+  geom_sf(data = india) +
+  geom_sf(data = srilanka) +
+  geom_sf(data = myanmar) +
   geom_text(data=bangladesh ,aes(X, Y, label=label), size=3) +
   geom_text(data=nepal ,aes(X, Y, label=label), size=3) +
-  geom_text(data=pakistan ,aes(X, Y, label=label), size=3)
+  geom_text(data=india ,aes(X, Y, label=label), size=3) +
+  geom_text(data=myanmar ,aes(X, Y, label=label), size=3) +
+  geom_text(data=srilanka ,aes(X, Y, label=label), size=3) 
 ```
 
 ## Exercises: 
