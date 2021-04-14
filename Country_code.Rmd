@@ -1,28 +1,252 @@
 ---
-title: "country_code"
-output: html_document
+title: 'country_code'
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    df_print: paged
+    code_download: true
 ---
 
 ```{r}
 library(countrycode)
 library(dplyr)
+library("ggplot2")
+library("sf")
+library("rnaturalearth")
+library("rnaturalearthdata")
+library(rgeos)
+```
+
+<br>
+
+## Origin and Destination
+
+##### The countrycode package has two main features that we'll be explaning today: countrycode and countryname. What this package generally does is it takes in a country name or country code and converts it into a different language or country code of our choice. This package in itself is pretty simple and can be used very easily to clean up datasets in the pre-processing step. It's a great way to standardize country names and codes if we are using several different datasets and can be great in making labels when mapping and making other visualizations. Although there was a group who has done geom_sf in the past, I will show some examples of using countrycode with geom_sf down below. 
+
+<br> 
+
+##### For this package, the most important thing is the origin and desitination input for the country names and codes. Given below is a list of details for both origins and destinations along with a description of what they are: 
+
+• ccTLD: IANA country code top-level domain
+
+• country.name: country name (English)
+
+• country.name.de: country name (German)
+
+• cowc: Correlates of War character
+
+• cown: Correlates of War numeric
+
+• dhs: Demographic and Health Surveys Program
+
+• ecb: European Central Bank
+
+• eurostat: Eurostat
+
+• fao: Food and Agriculture Organization of the United Nations numerical code
+
+• fips: FIPS 10-4 (Federal Information Processing Standard)
+
+• gaul: Global Administrative Unit Layers
+
+• genc2c: GENC 2-letter code
+
+• genc3c: GENC 3-letter code
+
+• genc3n: GENC numeric code
+
+• gwc: Gleditsch & Ward character
+
+• gwn: Gleditsch & Ward numeric
+
+• imf: International Monetary Fund
+
+• ioc: International Olympic Committee
+
+• iso2c: ISO-2 character
+
+• iso3c: ISO-3 character
+
+• iso3n: ISO-3 numeric
+
+• p4n: Polity IV numeric country code
+
+• p4c: Polity IV character country code
+
+• un: United Nations M49 numeric codes
+
+• unicode.symbol: Region subtag (often displayed as emoji flag)
+
+• unpd: United Nations Procurement Division
+
+• vdem: Varieties of Democracy (V-Dem version 8, April 2018)
+
+• wb: World Bank (very similar but not identical to iso3c)
+
+• wvs: World Values Survey numeric code
+
+
+<br> 
+
+##### In addition to these origins and destinations, there are more destinations. Look at the codelist to see all of the different destinations that a country code or name may be converted to. 
+
+```{r}
+codelist
 ```
 
 
-##Origin and destination
+
+## Country Code:
+
+##### countrycode can take in both country code and country name. What it does is, it converts either the country code or country name to whatever destination we want to convert it to. For countrycode, the origin and destination have to be put in and having to identify the origin (the code associated with the given data) is the hardest part.There are around 30 different origins and destinations for the type of countrynames and countrycodes. 
+
+###### The usage of the countrycode function is as follows:
+\
+countrycode(
+sourcevar,
+origin,
+destination,
+warn = TRUE,
+nomatch = NA,
+custom_dict = NULL,
+custom_match = NULL,
+origin_regex = FALSE
+)
+
+\
+**Here are some examples of things you can change codes or names into:**
+```{r}
+countrycode("USA", "iso3c", "cldr.name.ja")
+```
+
+```{r}
+countrycode("USA", "iso3c", "currency")
+```
+
+```{r}
+countrycode("United States", "country.name", "iso2c")
+```
+
+```{r}
+countrycode("United States", "country.name", "un.name.zh")
+```
+
+\
+**You can also create your own/ download custom dictionaries for things that are not included in the generic countrycode dictionary.**
+```{r}
+cd <- 'https://bit.ly/2ToSrFv'
+cd <- read.csv(cd)
+countrycode(c('AL', 'AK'), 'abbreviation', 'state',
+custom_dict = cd)
+countrycode(c('Alabama', 'North Dakota'), 'state.regex', 'abbreviation',
+custom_dict = cd, origin_regex = TRUE)
+```
+
+\
+**If your data has a name that isn't one of the recognized inputs or you want a custom output, you can use custom_match.**
+```{r}
+countrycode(c('United States', 'California'), 'country.name', 'iso3c',
+custom_match = c('California' = 'CA'))
+```
+
+\
+**If you don't know what type of origin you are working with you can use the guess_field function.**
+```{r}
+guess_field("美利坚合众国")
+```
+
+
+
+
+
+
+
+## Country Name:
+
+##### countryname can only take in names of countries and not codes. But the convenient thing about countryname is that there is no need to input an origin. For countryname, the only input is the data$country_name and the destination / type of country name or code we want to convert the country name to. 
 
 ```{r}
 data <- read.csv("gdp.csv")
-print(data)
-data <-
-data %>% 
-  rename(Dollars = X.millions.of.international.dollars.)
+countryname(data$Economy, destination = "continent", warn = FALSE)
 ```
 
-##Examples of how you use country code
 
-##Country Name:
+## Mapping: countrycode + geom_sf
 
-##Guess Field:
+##### We've learned about the geom_sf package in this class before, so I'm only going to briefly touch on it this time. The package comes with data for countries around the world with their coordinates, continents, code names, etc. so we will be using the world data from the geom_sf package. 
+
+```{r}
+#finding coordinates for every country in the world dataset
+world <- ne_countries(scale = "medium", returnclass = "sf")
+coordinates <- cbind(world, st_coordinates(st_centroid(world$geometry)))
+coordinates <- 
+  coordinates %>%
+  select(name,sovereignt, type, X,Y)
+```
+
+##### World map with country labels in Arabic
+
+```{r}
+#using countrycode on coordinates data
+Arabic <-
+  mutate(coordinates) %>%
+  mutate(arabic = countrycode(sovereignt, origin = 'country.name', destination = 'un.name.ar')) %>%
+  mutate()
+
+ggplot(data = world) +
+    geom_sf() + 
+    geom_text(data=Arabic ,aes(X, Y, label=arabic),
+    color = "darkblue", check_overlap = TRUE, size=2)
+```
+
+
+```{r}
+codelist
+countryname(coordinates$name, destination = 'cldr.name.bn')
+
+bangladesh <-
+  bangladesh <- coordinates[world$name == 'Bangladesh',] %>%
+  mutate(label = countryname(name, destination = 'un.name.zh'))
+  
+czech <-
+  coordinates[coordinates$name == 'Czech Rep.',] %>%
+  mutate(label = countryname(name, destination = 'un.name.zh'))
+
+nepal <-
+  coordinates[coordinates$name == 'Nepal',] %>%
+  mutate(label = countryname(name, destination = 'currency'))
+
+pakistan <- 
+  coordinates[coordinates$name == 'Pakistan',] %>%
+  mutate(label = countryname(name, destination = 'cldr.name.ps'))
+
+ggplot() + 
+  geom_sf(data = bangladesh) +
+  geom_text(data=bangladesh ,aes(X, Y, label=label),
+            check_overlap = FALSE, size=5)
+
+ggplot() + 
+  geom_sf(data = czech) +
+  geom_text(data=czech ,aes(X, Y, label=label),
+            check_overlap = TRUE, size=5)
+
+ggplot() + 
+  geom_sf(data = bangladesh) + 
+  geom_sf(data = nepal) +
+  geom_sf(data = pakistan) +
+  geom_text(data=bangladesh ,aes(X, Y, label=label), size=3) +
+  geom_text(data=nepal ,aes(X, Y, label=label), size=3) +
+  geom_text(data=pakistan ,aes(X, Y, label=label), size=3)
+```
+
+## Exercises: 
+
+##### Convert the names (Economy) into five different languages (Russian, Arabic, French, German, Chinese)
+
+##### Find the sub-region name and code for the top 20 countries with the highest Dollar values. 
+
+##### Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
+
 
 
