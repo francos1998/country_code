@@ -310,7 +310,7 @@ ggplot() +
 
 ## Exercises: 
 
-##### Convert the name of a country of choice into five different languages of your choice. Use the world dataset. You can also use 'codelist' to look at different destinations. 
+##### Question 1: Convert the name of a country of choice into five different languages of your choice. Use the world dataset. You can also use 'codelist' to look at different destinations. (Remove eval=FALSE)
 
 ```{r eval=FALSE}
 question1 <-
@@ -320,13 +320,17 @@ question1 <-
 #Repeat the code down below for 4 other languages.
 countryname(question1$name, '???')
 ```
+<br> 
+
+##### Question 2: Find the sub-region name and code for the top 20 countries with the highest Dollar values. 
+
+```{r}
+
+```
 
 
+##### Question 3: Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
 
-##### Find the sub-region name and code for the top 20 countries with the highest Dollar values. 
-
-##### Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
-
-#### Draw a map that has each country named after the continent it belongs to and colored  by their continent. Make sure your map looks like an actual map (not grids, not axis, add a title, a caption, etc.)
+##### Question 4: Draw a map that has each country named after the continent it belongs to and colored  by their continent. Make sure your map looks like an actual map (not grids, not axis, add a title, a caption, etc.)
 
 

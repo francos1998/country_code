@@ -1,0 +1,88 @@
+---
+title: "Solutions"
+author: "Juthi Dewan"
+date: "4/15/2021"
+output: html_document
+---
+
+```{r}
+library(countrycode)
+library(dplyr)
+library("ggplot2")
+library("sf")
+library("rnaturalearth")
+library("rnaturalearthdata")
+library(rgeos)
+```
+
+## Exercises: 
+
+##### Question 1: Convert the name of a country of choice into five different languages (Russian, Arabic, French, German, Chinese). Use the world dataset. 
+
+```{r}
+#answer can vary
+question1 <-
+  world %>%
+  filter(name == 'United States')
+
+countryname(question1$name, 'cldr.name.he')
+countryname(question1$name, 'cldr.name.ja')
+countryname(question1$name, 'cldr.name.bn')
+countryname(question1$name, 'cldr.name.tk')
+countryname(question1$name, 'cldr.name.am')
+```
+
+
+
+##### Question 2: Find the 'region' name and code for the top 30 countries. Use 'countrycode' for this. 
+
+```{r}
+question2 <-
+  world %>% 
+  head(30)
+
+countrycode(question2$name, origin = 'country.name', destination = 'region')
+```
+
+
+
+##### Question 3: Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
+
+
+```{r}
+sudan <-
+  coordinates[world$name == 'Sudan',] %>%
+  mutate(label = countryname(name, destination = 'currency'))
+
+mexico <-
+  coordinates[coordinates$name == 'Mexico',] %>%
+  mutate(label = countryname(name, destination = 'un.name.ru'))
+
+argentina <-
+  coordinates[coordinates$name == 'Argentina',] %>%
+  mutate(label = countryname(name, destination = 'continent'))
+
+egypt <-
+  coordinates[coordinates$name == 'Egypt',] %>%
+  mutate(label = countryname(name, destination = 'un.regionsub.name'))
+
+mongolia <- 
+  coordinates[coordinates$name == 'Mongolia',] %>%
+  mutate(label = countryname(name, destination = 'cldr.name.ar'))
+
+
+ggplot() + 
+  geom_sf(data = sudan) + 
+  geom_sf(data = mexico) +
+  geom_sf(data = argentina) +
+  geom_sf(data = egypt) +
+  geom_sf(data = mongolia) +
+  geom_text(data=sudan ,aes(X, Y, label=label), size=3) +
+  geom_text(data=mexico ,aes(X, Y, label=label), size=3) +
+  geom_text(data=argentina ,aes(X, Y, label=label), size=3) +
+  geom_text(data=egypt ,aes(X, Y, label=label), size=3) +
+  geom_text(data=mongolia ,aes(X, Y, label=label), size=3) 
+```
+
+
+#### Draw a map that has each country named after the continent it belongs to and colored  by their continent. Make sure your map looks like an actual map (not grids, not axis, add a title, a caption, etc.)
