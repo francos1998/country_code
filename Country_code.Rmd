@@ -245,8 +245,15 @@ Arabic <-
 ggplot(data = world) +
     geom_sf() + 
     geom_text(data=Arabic ,aes(X, Y, label=arabic),
-    color = "darkblue", check_overlap = TRUE, size=2)
+    color = "darkblue", check_overlap = TRUE, size=2)+
+    labs(x = NULL,
+         y = NULL)+
+    theme(panel.background = element_blank())
 ```
+
+
+
+
 
 
 ```{r warning=FALSE}
@@ -309,5 +316,6 @@ ggplot() +
 
 ##### Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
 
+#### Draw a map that has each country named after the continent it belongs to and colored  by their continent. Make sure your map looks like an actual map (not grids, not axis, add a title, a caption, etc.)
 
 
