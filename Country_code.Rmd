@@ -310,7 +310,9 @@ ggplot() +
 
 ## Exercises: 
 
-##### Question 1: Convert the name of a country of choice into five different languages of your choice. Use the world dataset. You can also use 'codelist' to look at different destinations. (Remove eval=FALSE)
+<br>
+
+##### Question 1: Convert the name of a country of choice into five different languages of your choice. Use the world dataset and use countryname. You can also use 'codelist' to look at different destinations. (Remove eval=FALSE)
 
 ```{r eval=FALSE}
 question1 <-
@@ -322,14 +324,33 @@ countryname(question1$name, '???')
 ```
 <br> 
 
-##### Question 2: Find the sub-region name and code for the top 20 countries with the highest Dollar values. 
+##### Question 2: Find the 'region' name and code for the top 30 countries. Use 'countrycode' for this. 
 
-```{r}
+```{r eval=FALSE}
+question2 <-
+  world %>% 
+  head(30)
+
+countrycode(question2$name, origin = '???', destination = '???')
+```
+
+<br> 
+
+##### Question 3: Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
+
+
+```{r eval=FALSE}
+question3 <-
+  coordinates[world$name == ???,] %>%
+  mutate(label = countryname(name, destination = '???'))
+
+ggplot() + 
+  geom_sf(data = ???) + 
+  geom_text(data=??? ,aes(X, Y, label=???), size=???) +
 
 ```
 
-
-##### Question 3: Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
+<br> 
 
 ##### Question 4: Draw a map that has each country named after the continent it belongs to and colored  by their continent. Make sure your map looks like an actual map (not grids, not axis, add a title, a caption, etc.)
 
