@@ -310,7 +310,18 @@ ggplot() +
 
 ## Exercises: 
 
-##### Convert the names (Economy) into five different languages (Russian, Arabic, French, German, Chinese)
+##### Convert the name of a country of choice into five different languages of your choice. Use the world dataset. You can also use 'codelist' to look at different destinations. 
+
+```{r eval=FALSE}
+question1 <-
+  world %>%
+  filter(name == '???')
+
+#Repeat the code down below for 4 other languages.
+countryname(question1$name, '???')
+```
+
+
 
 ##### Find the sub-region name and code for the top 20 countries with the highest Dollar values. 
 
