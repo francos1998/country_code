@@ -125,7 +125,7 @@ origin_regex = FALSE
 \
 **Here are some examples of things you can change codes or names into:**
 ```{r}
-countrycode("USA", "iso3c", "cldr.name.ja")
+countrycode("USA", "iso3c", "country.name")
 #countrycode(source)
 ```
 
@@ -164,7 +164,7 @@ custom_match = c('California' = 'CA'))
 \
 **If you don't know what type of origin you are working with you can use the guess_field function.**
 ```{r}
-guess_field("美利坚合众国")
+guess_field("United States of America")
 ```
 
 
