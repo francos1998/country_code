@@ -175,11 +175,11 @@ guess_field("United States of America")
 
 ## Country Name:
 
-##### Countryname can only take in names of countries and not codes. But the convenient thing about countryname is that there is no need to input an origin. For countryname, the only input is the data$country_name and the destination / type of country name or code we want to convert the country name to. It detects variations of country names in many languages and then it applies the 'countrycodes' English regexes for the remaining cases. 
+##### Countryname can only take in names of countries and not codes. For countryname, the only input is the data$country_name and the destination / type of country name or code we want to convert the country name to. It detects variations of country names in many languages and then it applies the 'countrycodes' English regexes for the remaining cases. 
 
 ###### The usage of the countryname function is as follows:
 \
-countrycode(
+countryname(
 sourcevar,
 destination,
 warn = FALSE,
@@ -196,11 +196,13 @@ data <- read.csv("gdp.csv")
 countryname(data$Economy, destination = "continent", warn = FALSE) %>% 
   head(10)
 ```
+
 ```{r}
 #Here we translate all of the country names into Bangla
 countryname(data$Economy, destination = "cldr.name.bn", warn = FALSE) %>% 
   head(10)
 ```
+
 ```{r}
 #Here we translate all of the country names into Spanish
 countryname(data$Economy, destination = "cldr.name.es", warn = FALSE) %>% 
