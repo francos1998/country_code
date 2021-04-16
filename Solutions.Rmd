@@ -100,3 +100,20 @@ ggplot() +
 
 
 #### Draw a map that has each country named after the continent it belongs to and colored  by their continent. Make sure your map looks like an actual map (not grids, not axis, add a title, a caption, etc.)
+
+```{r warning=FALSE}
+#using countrycode on coordinates data
+Continent <-
+  mutate(coordinates) %>%
+  mutate(continent = countrycode(sovereignt, origin = 'country.name', destination = 'continent')) %>% 
+  mutate(continent = as.factor(continent))
+
+#world map with colored by continent
+ggplot(data = world) +
+    geom_sf(aes(fill = continent)) + 
+    geom_text(data=Continent ,aes(X, Y, label = continent),
+    color = "darkblue", check_overlap = TRUE, size=2)+
+    labs(x = NULL,
+         y = NULL)+
+    theme(panel.background = element_blank())
+```
