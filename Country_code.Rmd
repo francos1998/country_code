@@ -315,6 +315,7 @@ ggplot() +
 ##### Question 1: Convert the name of a country of choice into five different languages of your choice. Use the world dataset and use countryname. You can also use 'codelist' to look at different destinations. (Remove eval=FALSE)
 
 ```{r eval=FALSE}
+#remove eval=FALSE before running
 question1 <-
   world %>%
   filter(name == '???')
@@ -327,6 +328,7 @@ countryname(question1$name, '???')
 ##### Question 2: Find the 'region' name and code for the top 30 countries. Use 'countrycode' for this. 
 
 ```{r eval=FALSE}
+#remove eval=FALSE before running
 question2 <-
   world %>% 
   head(30)
@@ -345,7 +347,8 @@ countrycode(question2$name, origin = '???', destination = '???')
 
 
 ```{r eval=FALSE}
-question3 <-
+#remove eval=FALSE before running
+question4 <-
   coordinates[world$name == ???,] %>%
   mutate(label = countryname(name, destination = '???'))
 
