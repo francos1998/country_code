@@ -333,10 +333,15 @@ question2 <-
 
 countrycode(question2$name, origin = '???', destination = '???')
 ```
+<br>
+
+
+##### Question 3: Use the guess_field() function to find the closest match of the origin of the adm0_a3 column in the world dataset.
+
 
 <br> 
 
-##### Question 3: Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
+##### Question 4: Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
 
 
 ```{r eval=FALSE}
@@ -352,6 +357,6 @@ ggplot() +
 
 <br> 
 
-##### Question 4: Draw a map that has each country named after the continent it belongs to and colored  by their continent. Make sure your map looks like an actual map (not grids, not axis, add a title, a caption, etc.)
+##### Question 5: Draw a map that has each country named after the continent it belongs to and colored  by their continent. Make sure your map looks like an actual map (not grids, not axis, add a title, a caption, etc.)
 
 

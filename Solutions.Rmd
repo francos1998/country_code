@@ -15,6 +15,15 @@ library("rnaturalearthdata")
 library(rgeos)
 ```
 
+```{r}
+world <- ne_countries(scale = "medium", returnclass = "sf")
+coordinates <- cbind(world, st_coordinates(st_centroid(world$geometry)))
+coordinates <- 
+  coordinates %>%
+  select(name,sovereignt, type, X,Y)
+```
+
+
 ## Exercises: 
 
 ##### Question 1: Convert the name of a country of choice into five different languages (Russian, Arabic, French, German, Chinese). Use the world dataset. 
@@ -43,10 +52,15 @@ question2 <-
 
 countrycode(question2$name, origin = 'country.name', destination = 'region')
 ```
+##### Question 3: Use the guess_field() function to find the closest match of the origin of the adm0_a3 column in the world dataset.
 
 
+```{r}
+guess_field(world$adm0_a3)
+```
 
-##### Question 3: Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
+
+##### Question 4: Draw a map with 5 countries with different labels using geom_sf, geom_text and countryname (you have complete freedom over what countries you want to do)
 
 
 ```{r}
